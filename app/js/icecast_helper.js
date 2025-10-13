@@ -1,39 +1,30 @@
 const StringHelper = require('js/string_helper')
 
-let IcecastHelper = {
-  parseSongData: function (songData) {
-    // still broken if song has dash in it but not multiple artsts
-    // maybe check for duplication of artist name instead and base it on that
-    let artistName = ''
-    let songName = ''
-
-    if (StringHelper.countOccurrences(songData, ' - ') < 1) {
-      artistName = 'you are tuned in'
-      songName = 'to vapor fm'
-    } else if (StringHelper.countOccurrences(songData, ' - ') === 1) {
-      artistName = songData.split(' - ')[0]
-      songName = songData.split(' - ')[1]
-    } else {
-      const artistSubStringLocation = StringHelper.nthOccurrence(songData, ' - ', 1)
-      const songSubStringLocation = StringHelper.nthOccurrence(songData, ' - ', 2)
-      artistName = songData.substring(artistSubStringLocation + 3, songSubStringLocation)
-      songName = songData.substring(songSubStringLocation + 3, songData.length)
-    }
-
-    return { artistName: artistName, songName: songName }
-  }
-}
+let IcecastHelper = {}
 
 IcecastHelper.getSongData = function (successCallback) {
   var xhr = new XMLHttpRequest()
   xhr.timeout = 2000
-  xhr.open('GET', 'https://vapor.fm:8000/status-json.xsl')
+  xhr.open('GET', 'https://radio.plaza.one/status-json.xsl')
   xhr.onload = () => {
     if (xhr.status === 200) {
-      let songData = JSON.parse(xhr.response).icestats.source.title
-      successCallback(IcecastHelper.parseSongData(songData))
+      let songData = JSON.parse(xhr.response)
+      let artistName = ''
+      let songName = ''
+
+      if (songData.icestats && songData.icestats.source && songData.icestats.source.title) {
+        const title = songData.icestats.source.title
+        if (StringHelper.countOccurrences(title, ' - ') === 1) {
+          artistName = title.split(' - ')[0]
+          songName = title.split(' - ')[1]
+        } else {
+          artistName = 'you are tuned in'
+          songName = 'to vapor fm'
+        }
+      }
+      successCallback({ artistName: artistName, songName: songName })
     } else {
-      console.log('Icecast request failed.  Returned status of ' + xhr.status)
+      console.log('Plaza.one request failed.  Returned status of ' + xhr.status)
     }
   }
   xhr.send()
