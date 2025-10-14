@@ -12,15 +12,12 @@ IcecastHelper.getSongData = function (successCallback) {
       let artistName = ''
       let songName = ''
 
-      if (songData.icestats && songData.icestats.source && songData.icestats.source.title) {
-        const title = songData.icestats.source.title
-        if (StringHelper.countOccurrences(title, ' - ') === 1) {
-          artistName = title.split(' - ')[0]
-          songName = title.split(' - ')[1]
-        } else {
-          artistName = 'you are tuned in'
-          songName = 'to vapor fm'
-        }
+      if (songData.icestats && songData.icestats.source && songData.icestats.source.length > 0) {
+        artistName = songData.icestats.source[0].artist
+        songName = songData.icestats.source[0].title
+      } else {
+        artistName = 'you are tuned in'
+        songName = 'to vapor fm'
       }
       successCallback({ artistName: artistName, songName: songName })
     } else {
