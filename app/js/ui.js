@@ -58,11 +58,11 @@ module.exports = class UI {
   }
 
   updateText (songData) {
-    let fittingArtistName = StringHelper.fittingString(songData.artistName, this.canvas, this.context, 0.8)
-    let fittingSongName = StringHelper.fittingString(songData.songName, this.canvas, this.context, 0.8)
-
+    const titleElement = document.getElementById('title');
+    if (titleElement) {
+      titleElement.innerHTML = `${songData.artistName} - ${songData.songName}`;
+    }
     console.log('Updating text:', songData);
-    this.drawOverlay(fittingArtistName, fittingSongName)
   }
 
   setMaterial (material) {
@@ -240,21 +240,7 @@ module.exports = class UI {
     this.updateMaterial()
   }
 
-  drawOverlay (artistName, songName) {
-    this.context.clearRect(0, this.canvas.height / 2, this.canvas.width * 0.85, this.canvas.height / 2)
-    this.context.font = '50px TelegramaRaw'
-
-    this.context.strokeStyle = 'black'
-    this.context.lineWidth = 8
-    this.context.strokeText(artistName, 10, (this.canvas.height * 0.9) - 50)
-    this.context.strokeText(songName, 10, (this.canvas.height * 0.98) - 50)
-
-    this.context.fillStyle = 'white'
-    this.context.fillText(artistName, 10, (this.canvas.height * 0.9) - 50)
-    this.context.fillText(songName, 10, (this.canvas.height * 0.98) - 50)
-
-    this.updateMaterial()
-  }
+  
 
   drawShuffleText (enabled) {
     this.clearVolumeDisplay()
