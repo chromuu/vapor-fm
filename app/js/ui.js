@@ -61,6 +61,7 @@ module.exports = class UI {
     let fittingArtistName = StringHelper.fittingString(songData.artistName, this.canvas, this.context, 0.8)
     let fittingSongName = StringHelper.fittingString(songData.songName, this.canvas, this.context, 0.8)
 
+    console.log('Updating text:', songData);
     this.drawOverlay(fittingArtistName, fittingSongName)
   }
 
