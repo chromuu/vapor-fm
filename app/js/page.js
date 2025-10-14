@@ -37,11 +37,17 @@ module.exports = class {
     })
     this.keyCodeMap.set(73, () => { this.ui.drawInfo() }) // i
     this.keyCodeMap.set(83, () => { this.renderController.ToggleShuffle() }) // s
+    this.keyCodeMap.set(81, () => { this.ui.toggleNowPlayingVisibility() }) // q
 
     document.onkeydown = this.CheckKey
     document.onkeyup = this.CheckKeyUp
     document.onclick = this.CheckClick
     document.addEventListener('click', () => { if (!this.activated) { this.Activate(this) } })
+
+    const nowPlayingElement = document.getElementById('nowplaying');
+    if (nowPlayingElement) {
+      nowPlayingElement.addEventListener('click', () => { this.ui.toggleNowPlayingVisibility(); });
+    }
   }
 
   IncreaseVolume () {

@@ -242,6 +242,17 @@ module.exports = class UI {
 
   
 
+  toggleNowPlayingVisibility () {
+    const nowPlayingElement = document.getElementById('nowplaying');
+    if (nowPlayingElement) {
+      if (nowPlayingElement.style.display === 'none') {
+        nowPlayingElement.style.display = 'block';
+      } else {
+        nowPlayingElement.style.display = 'none';
+      }
+    }
+  }
+
   drawShuffleText (enabled) {
     this.clearVolumeDisplay()
 
