@@ -93,6 +93,7 @@ module.exports = class {
     self.activated = true
     self.audioInitializer.LoadAndPlayAudio()
     self.renderController.activeVisualizer.DisplayLoading()
+    self.ui.refreshSongData()
 
     var listener = () => {
       self.renderController.Activate()
