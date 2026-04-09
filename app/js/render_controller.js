@@ -18,6 +18,9 @@ const HeartVisualizer = require('js/visualizers/heart_visualizer')
 const OceanVisualizer = require('js/visualizers/ocean_visualizer')
 
 const CheckerboardVisualizer = require('js/visualizers/shader_visualizers/checkerboard_visualizer')
+const PlasmaVisualizer = require('js/visualizers/shader_visualizers/plasma_visualizer')
+const TunnelVisualizer = require('js/visualizers/shader_visualizers/tunnel_visualizer')
+const AuroraVisualizer = require('js/visualizers/shader_visualizers/aurora_visualizer')
 
 const StartScreen = require('js/start_screen')
 
@@ -58,6 +61,9 @@ module.exports = class RenderController {
     this.visualizers[0] = new PongVisualizer(this.audioInitializer)
     this.visualizers[2] = new CheckerboardVisualizer(this.audioInitializer, this.renderer)
     this.visualizers[3] = new BustVisualizer(this.audioInitializer)
+    this.visualizers[8] = new PlasmaVisualizer(this.audioInitializer, this.renderer)
+    this.visualizers[9] = new TunnelVisualizer(this.audioInitializer, this.renderer)
+    this.visualizers[10] = new AuroraVisualizer(this.audioInitializer, this.renderer)
     this.visualizers[4] = new MystifyVisualizer(this.audioInitializer)
     this.visualizers[5] = new CybergridVisualizer(this.audioInitializer)
     this.visualizers[7] = new OceanVisualizer(this.audioInitializer, this.renderer)
@@ -65,7 +71,7 @@ module.exports = class RenderController {
 
     this.visualizerCounter = 7
 
-    this.shuffleIndices = [3, 4, 5, 7, 14]
+    this.shuffleIndices = [3, 4, 5, 7, 8, 9, 10, 14]
 
     this.hud = new THREE.Scene()
     this.hudCamera = new THREE.OrthographicCamera(
