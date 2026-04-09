@@ -74,6 +74,7 @@ module.exports = class RenderController {
     this.visualizerCounter = 7
 
     this.shuffleIndices = [3, 4, 5, 7, 8, 9, 10, 11, 14]
+    this.shuffleIndices = [3, 4, 5, 7, 9, 10, 11, 14]
 
     this.hud = new THREE.Scene()
     this.hudCamera = new THREE.OrthographicCamera(
